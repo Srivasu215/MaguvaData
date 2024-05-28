@@ -1,11 +1,8 @@
 var fs = require('fs');
-
 var obj = JSON.parse(fs.readFileSync('Vouchers.json', 'utf8'));
 let LocalArray = [];
 
 obj.map(element => {
-
-    // console.log("LocalHeaderObj:", element);
 
     Object.values(element.InvGrid).map((e) => {
         let obj = {}
@@ -18,27 +15,21 @@ obj.map(element => {
         obj.MRP = e.MRP
         obj.Amount = e.Amount;
         obj.DateTime = element.Date !== "" ? new Date(new Date(element.Date).setHours(8, 4, 27, 250)).toISOString() : ""
-        // console.log("obj:::", obj);
         LocalArray.push(obj)
 
         // return obj
     });
-    // console.log("LocalArray:", LocalInvGrid);
-
-
-    // return LocalArray;
 });
+
 let LocalPurchaseItems = LocalArray.map((ele, index) => {
     let localIndex = index + 1
     ele.pk = localIndex;
     ele.UuId = localIndex;
     return ele;
-
 });
-console.log("LocalArrayLocalArray:", LocalPurchaseItems);
+
 fs.writeFile("PurchaseItems5.json", JSON.stringify(LocalPurchaseItems), function (err) {
     if (err) throw err;
-    console.log('complete');
 });
 
 // {

@@ -1,5 +1,4 @@
 var fs = require('fs');
-
 var obj = JSON.parse(fs.readFileSync('Vouchers.json', 'utf8'));
 
 let LocalHeaderData = obj.map(element => {
@@ -16,13 +15,10 @@ let LocalHeaderData = obj.map(element => {
     LocalHeaderObj.DateTime = element.Date !== "" ? new Date(new Date(element.Date).setHours(8, 4, 27, 250)).toISOString() : ""
     LocalArray.push(LocalHeaderObj);
 
-    console.log("LocalHeaderObj:", LocalHeaderObj);
-
     return LocalHeaderObj;
 });
 fs.writeFile("Vouchers2.json", JSON.stringify([...LocalHeaderData]), function (err) {
     if (err) throw err;
-    console.log('complete');
 });
 
 // {
